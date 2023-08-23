@@ -1,0 +1,56 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+using ull = unsigned long long;
+#define FOR(i, a, b) for(int i = a; i <= b; i++)
+#define FORD(i, a, b) for(int i = a; i >= b; i--)
+#define REP(i, b) for(int i = 0; i < b; i++)
+#define PER(i, b) for(int i = b - 1; i >= 0; i--)
+#define fi first
+#define se second
+#define all(x) x.begin(),x.end()
+using pii = pair<int, int>;
+const ll LINF = 1e18 + 5;
+const int INF = 1e9;
+const int MOD = 1e9 + 7;
+const int MAX = 1e6 + 5;
+const int dx[4] = {-1, 0, 1, 0};
+const int dy[4] = {0, 1, 0, -1};
+int n,k, X[1005], a[1005];
+bool flag = false;
+vector<vector<int>> res;
+void Try(int i, int start, int sum){
+    for (int j=start; j<=n; j++){
+        if (sum + X[j] <= k){
+            a[i] = X[j];
+            if (sum + X[j] == k){
+                vector<int> tmp (a+1, a+i+1);
+                res.push_back(tmp);
+            }
+            else    
+                Try(i+1, j+1, sum+a[i]);
+        }
+        else break;
+    }
+}
+int main(){
+    freopen("inp.txt", "r", stdin);
+    freopen("oup.txt", "w", stdout);
+    cin >> n >> k;
+    for (int i = 1; i<=n; i++)
+        cin >> X[i];
+    sort(X+1,X+1+n);
+    Try(1,1,0);
+    for (auto it : res){
+        cout << "[";
+        for (int j=0; j<it.size(); j++){
+            cout << it[j];
+            if (j!=it.size()-1)
+                cout << ' ';
+            else
+                cout <<"]\n";
+        }
+    }
+}
+
+
